@@ -4,6 +4,7 @@ const server = require('../../lib/server');
 const superagent = require('superagent');
 require('jest');
 
+
 describe('POST /api/v1/note', () => {
   beforeAll(() => server.start(process.env.PORT, () => console.log(`Listening on ${process.env.PORT}`)));
   afterAll(() => server.stop());
@@ -30,14 +31,7 @@ describe('POST /api/v1/note', () => {
     });
   });
   describe('Invalid req/res', () => {
-    it('should return a status 404 on bad path', () => {
-      return superagent.post(':4000/api/v1/doesNotExist')
-      .send(this.mockNote)
-      .catch(err => {
-        // expect(err.status).toBe(404);
-        expect(err.response.message).toMatch(/path error/);
-      });
-    });
+
     it('should return a status 400 on bad request body', () => {
       return superagent.post(':4000/api/v1/note')
       .send({})
